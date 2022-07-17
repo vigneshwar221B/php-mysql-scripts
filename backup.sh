@@ -3,8 +3,11 @@
 main () {
   echo "db backup started..."
 
+  echo $1
+  echo $2
+
   day="$(date +'%A')"
-  db_backup="mydb_backup_${day}.sql"
+  db_backup="MyBackup_${day}.sql"
 
   username=""
   password=""
@@ -26,6 +29,7 @@ main () {
   if [ "$#" -eq 0 ] ; then 
    echo "no cmd line args are specified. Using the envs" 
   else 
+    echo "using cmd line args..."
     username=$1
     password=$2
   fi    
@@ -34,4 +38,4 @@ main () {
   echo "db backup complete!"
 }
 
-main
+main $1 $2
