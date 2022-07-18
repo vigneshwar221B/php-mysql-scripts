@@ -4,6 +4,8 @@
 os="";
 package_installer="";
 
+# ( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1
+
 os_type () {
   # redhat
   which yum >/dev/null && { os="redhat"; package_installer="yum"; return 0; }
@@ -19,6 +21,24 @@ error() {
   printf '\E[31m'; echo "$@"; printf '\E[0m'
 }
 
+# Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+function red {
+    printf "${RED}$@${NC}\n"
+}
+
+function green {
+    printf "${GREEN}$@${NC}\n"
+}
+
+function yellow {
+    printf "${YELLOW}$@${NC}\n"
+}
+
 install () {
   echo "installing the lamp stack...";
   #apt upgrades and stuffs
@@ -32,21 +52,29 @@ install () {
   eval "${package_installer} install -y php"
   eval "${package_installer} install -y mysql-server"
   eval "${package_installer} install -y php-mysql"
+
+  echo green "installed all the packages"
 }
 
 start () {
   service apache2 restart
   service mysql restart
+
+  green "Started both the apache and mysql server"
 }
 
 shut_down () {
   service apache2 stop
   service mysql stop
+
+  red "Apache and Mysql are down"
 }
 
 show_status () {
   service apache2 status
   service mysql status
+
+  yellow "Status is shown above"
 }
 
 get_option () {

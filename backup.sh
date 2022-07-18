@@ -27,7 +27,7 @@ main () {
 
   # read from cmd line args
   if [ "$#" -eq 0 ] ; then 
-   echo "no cmd line args are specified. Using the envs" 
+   echo "no cmd line args are not specified. Using the envs" 
   else 
     echo "using cmd line args..."
     username=$1

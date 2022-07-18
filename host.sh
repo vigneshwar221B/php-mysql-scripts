@@ -42,4 +42,4 @@ main () {
      ./job.sh
   fi
 }
-main
+main $1
